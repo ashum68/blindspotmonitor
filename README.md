@@ -1,4 +1,4 @@
-Blind Spot Monitor
+# Blind Spot Monitor
 
 Using OpenCV, the program will display a warning if a car is present in the detection zone. The YOLO Object Detection Algorithm is used to validate a vehicle in the detection zone and classify 
 the type of vehicle (car, bike, truck, etc.).
