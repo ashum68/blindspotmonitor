@@ -1,0 +1,4 @@
+ultralytics==8.0.26
+numpy>=1.18.5
+opencv-python>=4.6.0
+cvzone==1.5.6

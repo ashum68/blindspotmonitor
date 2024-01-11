@@ -1,5 +1,5 @@
 from ultralytics import YOLO
-import cv2, cvzone, math, numpy as np
+import cv2, math, numpy as np, cvzone
 
 # cap = cv2.VideoCapture(0) # for webcam
 cap = cv2.VideoCapture("./test.mov") # for video file
@@ -54,5 +54,5 @@ while True:
               
     # display
     cv2.imshow('Image', img)
-    cv2.waitKey(1)
+    cv2.waitKey(0)
     
