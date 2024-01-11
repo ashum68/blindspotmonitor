@@ -4,6 +4,7 @@ import cv2, math, numpy as np, cvzone
 # cap = cv2.VideoCapture(0) # for webcam
 cap = cv2.VideoCapture("./test.mov") # for video file
 
+out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*"MJPG"), 20.0, (360, 640))
 
 YOLOmodel = YOLO('yolov8n.pt')
 
@@ -15,12 +16,13 @@ detect_zone = detect_zone.reshape((-1,1,2))
 warning = cv2.imread('bsm.png')
 img_height, img_width, _ = warning.shape
 
-while True:
+while cap.isOpened():
     success, img = cap.read()
     results = YOLOmodel(img, stream=True)
     
     # draw detection zone
     cv2.polylines(img,[detect_zone],True,(0,255,255),thickness=4)
+    cv2.circle(img, (280,355), 3, (0,255,0), cv2.FILLED)
 
     for r in results:
         boxes = r.boxes
@@ -51,8 +53,17 @@ while True:
                     img[ 20:20+img_height , 130:130+img_width ] = warning
                     cvzone.putTextRect(img, f'Watch for {vehicle_type[obj_detected]}!', (125, 125), scale=0.9, thickness=1, offset=0)
                 
-              
-    # display
-    cv2.imshow('Image', img)
-    cv2.waitKey(0)
     
+    # display, press q to quit
+    if success == True:
+        out.write(img)
+        cv2.imshow('Image', img)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+out.release()
+
+
+
+
+
